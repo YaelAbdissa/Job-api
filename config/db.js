@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
+
 const { mongo, env } = require('./vars');
 
-const migration = require('./afterdb');
+const migration = require('../lib/migration.lib');
 
 // set mongoose Promise to Bluebird
 mongoose.Promise = Promise;
@@ -35,9 +36,9 @@ exports.connect = () => {
     .then(async () => {
       console.log('mongoDB connected...')
 
-       await migration.migratePermissions()
-      // await migration.migrateRoles()
-      // await migration.migrateUsers()
+      await migration.migratePermissions()
+      await migration.migrateRoles()
+      await migration.migrateUsers()
     });
   return mongoose.connection;
 };

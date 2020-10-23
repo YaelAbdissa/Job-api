@@ -9,7 +9,9 @@ const JobSchema = new mongoose.Schema({
     job_type: { type: String, default: "" },
     salary: { type: String, default: "" },
     experience: { type: String, default: "" },
-    isclosed: {type:Boolean, default:false}
+    isclosed: {type:Boolean, default:false},
+    job_posted_by: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users' }],
+
     },
     {timestamps: {createdAt: 'created_at', modifiedAt: 'modified_at'}}
 )

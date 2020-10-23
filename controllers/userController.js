@@ -1,78 +1,32 @@
-const jobModel = require('../models/job.model')
+const userModel = require('../models/user.model')
 
-exports.addJob = async (req,res) =>{
+exports.viewAllUsers = async (req, res) => {
+
     try {
-            
-        const newJob = await new jobModel({
-            job_title : req.body.job_title,
-            description : req.body.description,
-            job_type :req.body.job_type,
-            salary : req.body.salary,
-            experience :req.body.experience,
-        })
-        await newJob.save()
-        return res.status(200).json(newJob)
-            
+        const users = await userModel.find({});
+        res.json(users)
     } catch (error) {
         
-    }
-}
-exports.jobsList = async (req,res) =>{
-    try {
-        const jobs = await jobModel.find({})
-        res.status(200).json(jobs)  
-
-    } catch (error) {
         res.status(400).json({
             error: true,
             message: error.message
         })
     }
-}
-exports.jobDetail = async (req,res) =>{
-    try {
-        const job =  await jobModel.findById(req.params.id)
-        if(job){
-            return res.status(200).json(job)
-        }
-        return res.json({
-            message: "no data with the id"
-        })
-      
-    } catch (error) {
-        res.status(400).json({
-            error: true,
-            message: error.message
-        })
-    }
-}
-exports.onlyOpen = async (req,res) =>{
-
-}
-exports.deleteJob = async (req,res) =>{
-    try {
-        const job =  await jobModel.findById(req.params.id)
-        if(job) {
-            await jobModel.remove({
-                _id: job._id
-            })
-            return res.status(200).json({
-                error:false,
-                message: "Successfully deleted"
-            })
-        }
-        res.status(200).json({
-            error: false,
-            message: 'municipal doesn\t exist',
     
-        })
-        throw new Error(" report not found")
-      
+}
+
+exports.viewUser = async (req, res) => {
+
+    try {
+        const user = await userModel.findById(req.params.id)
+        res.json(user)
     } catch (error) {
-        res.status(400).json({
+        res.status(404).json({
             error: true,
-            message: error.message
+            message: error
         })
     }
+
 }
+
 

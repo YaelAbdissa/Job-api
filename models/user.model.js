@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt')
 const userSchema = new mongoose.Schema({
     first_name: { type: String, default: '' },
     last_name: { type: String, default: '' },
+    username: { type: String, default: '' },
     email: { type: String, unique: true, trim: true, lowercase: true, required: true},
     password: { type: String, required: true, minlength: 8, maxlength: 128},
     roles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Roles' }],
@@ -61,6 +62,6 @@ userSchema.method({
 })
  
 
-// attributes
+
 
 module.exports = mongoose.model('User', userSchema);

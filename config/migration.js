@@ -19,6 +19,7 @@ const users = [
     {
         first_name : "admin",
         last_name :"admin",
+        username :"admin",
         email:"super@admin.com",
         password: "admin1234"
     }

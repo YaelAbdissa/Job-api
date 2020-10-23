@@ -9,6 +9,7 @@ const userController = require('../controllers/userController')
  * 
  * @route GET /users/
  * @group User 
+ * @security JWT
  * @returns {object} 200 - User objects
  * @returns {Error}  default - Unexpected error
  */
@@ -20,6 +21,7 @@ router.get('/', userController.viewAllUsers);
  * 
  * @route GET /users/{id}
  * @group User 
+ * @security JWT
  * @param {string} id.path.required - user id
  * @returns {object} 200 - User object
  * @returns {Error}  default - Unexpected error

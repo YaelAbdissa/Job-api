@@ -1,29 +1,30 @@
-const { permissions, roles, user} =require('./migration')
-const permissionModel = require('../models/permission.model')
-const roleModel = require('../models/role.model')
-const userModel = require('../models/user.model');
+const { permissions, roles, users} =require('./migration')
+var permissionModel = require('../models/permission.model')
+var roleModel = require('../models/role.model')
+var userModel = require('../models/user.model');
 
 
 module.exports = {
     
     migratePermissions: async () => {
         let permissionDocument =  await permissionModel.find({})
+        
         if(permissions.length > permissionDocument.length) {
+                
+                // some operation
                 permissions = permissions.filter(per => {
                     return permissionDocument.findIndex(val => val.name === per) === -1
                 })
                 await permissionModel.insertMany([
                     ...permissions.map(val => ({name: val}))
                 ])
+            
                 return;
-                
             }
            
     },
 
     migrateRoles: async () => {
-        logger.info(`Checking role migrations...`);
-
         await Object.keys(roles).forEach( async index => {
             
             let roleDocumentCount = await roleModel.countDocuments({ name: index})
